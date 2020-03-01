@@ -18,11 +18,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void addButtons();
+    void setupButtons();
 
 public slots:
-    void yeet();
-
+    void yeet(QAbstractButton *button);
 private:
     ipcsender *ipcsender;
     Ui::MainWindow *ui;

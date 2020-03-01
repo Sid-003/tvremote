@@ -2,5 +2,6 @@
     <qresource prefix="/soviet">
         <file>flag-400.png</file>
         <file>Flag_of_the_Soviet_Union.png</file>
+        <file>yeet.jpg</file>
     </qresource>
 </RCC>

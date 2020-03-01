@@ -9,42 +9,35 @@ ipcsender::ipcsender(QString ip)
     QHostAddress host (ip);
     succit->connectToHost(host, 20060);
     if(succit->waitForConnected())
-           qInfo() << "connected all is good";
+           qInfo() << "Connection successful.";
     else{
             qInfo() << succit->errorString();
        }
 }
 
-void ipcsender::sendIRRC(char *data)
+void ipcsender::sendIRRC(QString code)
 {
-    char *command = const_cast<char*>(QString("IRCC").toStdString().c_str());
-    char type = 'C';
-    char *tp = &type;
-    sendData(tp,  command, data);
+    sendData('C', "IRCC", code.toUtf8());
 }
 
-void ipcsender::sendData(char *type, char *command, char *data)
+void ipcsender::sendData(char type, QString command, QByteArray data)
 {
     if(succit->isOpen())
     {
         QByteArray messageData;
 
         messageData.append(_header, 2);
-        messageData.append(type, 1);
-        messageData.append(command, 4);
-        for(int i = 0; i < 16; i++)
-        {
-            messageData.append(data[i]);
-        }
-        //footer
-        messageData.append(0x0A);
+        messageData.append(type);
+        messageData.append(command);
+        messageData.append(data);
+        messageData.append(_footer);
         qInfo() << messageData.size();
         succit->write(messageData);
         qInfo() << "sent";
     }
     else
     {
-        qInfo() << "fucking thing isn't connected.";
+        qInfo() << "Not connected.";
     }
 
 }

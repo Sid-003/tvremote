@@ -14,8 +14,8 @@ public:
 
     ipcsender(QString ip);
 
-    void sendIRRC(char *data);
-    void sendData(char *type, char *command, char *data);
+    void sendIRRC(QString code);
+    void sendData(char type, QString command, QByteArray data);
 private:
     const char _header[2] = {0x2A, 0x53};
     const char _footer = 0x0A;
